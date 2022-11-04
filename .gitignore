@@ -3,3 +3,4 @@ env/
 *.pyc
 __pycache__/
 
+gs_credentials.json

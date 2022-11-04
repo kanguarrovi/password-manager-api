@@ -3,23 +3,26 @@ import string
 
 def password_generator(length: int, complexity=3):
 
+    if length < 0:
+        raise ValueError('length must have a positive value only')
+    if 0 < complexity > 5:
+        raise ValueError('complexity must have a positive value only less than 5')
+
+
     def characters_generator(length:int, complexity: int):
 
-        lower = string.ascii_lowercase
-        upper = string.ascii_uppercase
-        numbers = string.digits
-        symbols = string.punctuation
+        if complexity >= 1:
+            yield string.ascii_lowercase  # lower
+        if complexity >= 2:
+            yield string.ascii_uppercase  # upper
+        if complexity >= 3:
+            yield string.digits  # numbers
+        if complexity == 4:
+            yield string.punctuation  # symbols
 
-        if complexity == 1:
-            return lower
-        elif complexity == 2:
-            return lower + upper
-        elif complexity == 3:
-            return lower + upper + numbers
-        elif complexity == 4:
-            return lower + upper + numbers + symbols
+    characters_list = list(characters_generator(length, complexity))
 
-    characters = characters_generator(length, complexity)
+    characters = "".join(characters_list)
 
     character_random_list = random.sample(characters, length)
 
